@@ -1,127 +1,61 @@
-#include <iostream>
-#include <vector>
-#include <string>
+# Library Management System 📚
 
-using namespace std;
+This project is a **Library Management System** implemented in C++. It enables library administrators to manage books, register members, lend books to members, and track book availability.
 
-// Define a structure to represent a book
-struct Book {
-    string title;
-    string author;
-    int id;
-    bool isAvailable;
-};
+---
 
-// Define a structure to represent a member
-struct Member {
-    string name;
-    int id;
-    vector<Book*> borrowedBooks;
-};
+## Features ✨
 
-// Function to add a new book to the library
-void addBook(vector<Book>& library) {
-    Book newBook;
-    cout << "Enter book title: ";
-    getline(cin >> ws, newBook.title);
-    cout << "Enter author name: ";
-    getline(cin >> ws, newBook.author);
-    cout << "Enter book ID: ";
-    cin >> newBook.id;
-    newBook.isAvailable = true;
+1. **Add Books**  
+   Add a new book to the library with details such as:
+   - Title
+   - Author
+   - Unique Book ID
 
-    library.push_back(newBook);
-    cout << "Book added successfully!" << endl;
-}
+2. **Add Members**  
+   Register new library members with details such as:
+   - Name
+   - Unique Member ID
 
-// Function to lend a book to a member
-void lendBook(vector<Book>& library, vector<Member>& members) {
-    int memberId, bookId;
-    cout << "Enter member ID: ";
-    cin >> memberId;
-    cout << "Enter book ID: ";
-    cin >> bookId;
+3. **Lend Books**  
+   - Lend a book to a member.
+   - Ensure the book is available before lending.
+   - Track which member borrowed which book.
 
-    // Search for the member
-    Member* member = nullptr;
-    for (auto& m : members) {
-        if (m.id == memberId) {
-            member = &m;
-            break;
-        }
-    }
-    if (!member) {
-        cout << "Member not found." << endl;
-        return;
-    }
+4. **Display Books**  
+   - View a list of all books in the library, along with their availability status.
 
-    // Search for the book
-    Book* book = nullptr;
-    for (auto& b : library) {
-        if (b.id == bookId) {
-            book = &b;
-            break;
-        }
-    }
-    if (!book) {
-        cout << "Book not found." << endl;
-        return;
-    }
+5. **Display Members**  
+   - View all registered members and the books they have borrowed.
 
-    if (book->isAvailable) {
-        book->isAvailable = false;
-        member->borrowedBooks.push_back(book);
-        cout << "Book successfully lent to " << member->name << "." << endl;
-    } else {
-        cout << "Book is already lent out." << endl;
-    }
-}
+---
 
-// Function to display all books in the library
-void displayBooks(const vector<Book>& library) {
-    cout << "Library Books:" << endl;
-    for (const auto& book : library) {
-        cout << "Title: " << book.title << ", Author: " << book.author << ", ID: " << book.id;
-        if (book.isAvailable) {
-            cout << " (Available)" << endl;
-        } else {
-            cout << " (Not Available)" << endl;
-        }
-    }
-}
+## How to Use 🛠️
 
-int main() {
-    vector<Book> library;
-    vector<Member> members;
-    int choice;
+### Prerequisites:
+- A C++ compiler (e.g., `g++`)
 
-    do {
-        cout << "\nLibrary Management System\n";
-        cout << "1. Add Book\n";
-        cout << "2. Lend Book\n";
-        cout << "3. Display Books\n";
-        cout << "4. Exit\n";
-        cout << "Enter your choice: ";
-        cin >> choice;
+### Steps:
+1. Clone this repository or copy the code into your project.
+2. Compile the program:
+   ```bash
+   g++ library_management.cpp -o library_management
 
-        switch (choice) {
-            case 1:
-                cin.ignore(); // Ignore the newline character left by cin
-                addBook(library);
-                break;
-            case 2:
-                lendBook(library, members);
-                break;
-            case 3:
-                displayBooks(library);
-                break;
-            case 4:
-                cout << "Exiting...";
-                break;
-            default:
-                cout << "Invalid choice. Please enter a number from 1 to 4." << endl;
-        }
-    } while (choice != 4);
 
-    return 0;
-}
+---
+
+## How It Works 🛠️
+
+1. **Add Book**: Allows users to add new books with title, author, and a unique ID.
+2. **Add Member**: Enables the registration of new members with a name and unique ID.
+3. **Lend Book**: Assigns an available book to a registered member.
+4. **Display Books**: Shows a list of all books with their availability status.
+5. **Display Members**: Lists all members along with the books they have borrowed.
+
+---
+
+## Notes 📋
+
+- This program uses a menu-driven interface.
+- Ensure unique IDs for books and members to avoid conflicts.
+- Borrowed books are marked as "Not Available
